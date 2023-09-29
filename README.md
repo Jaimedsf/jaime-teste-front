@@ -1,6 +1,6 @@
 # Instalação do front end
 
-Abra o projeto react e instala as dependências 
+Abra o projeto react e instale as dependências 
 
 ```
 npm install
