@@ -1,1 +1,12 @@
-﻿# jaime-teste-front-end
+# Instação do front end
+
+Abra o projeto react e instala as dependências 
+
+```
+npm install
+```
+
+Inicialize 
+
+```
+npm start
