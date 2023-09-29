@@ -1,4 +1,4 @@
-# Instação do front end
+# Instalação do front end
 
 Abra o projeto react e instala as dependências 
 
