@@ -17,18 +17,23 @@ const formatCPF = (cpf) => {
 
 // Função para formatar o número de telefone
 const formatPhoneNumber = (phoneNumber) => {
-  // Verifique se o número de telefone possui 11 ou 10 dígitos
-  if (phoneNumber && (phoneNumber.length === 11 || phoneNumber.length === 10)) {
-    const ddd = phoneNumber.slice(0, 2);
-    const firstPart = phoneNumber.slice(2, 6);
-    const secondPart = phoneNumber.slice(6);
+  // Remova todos os caracteres não numéricos
+  const numericValue = phoneNumber.replace(/\D/g, "");
 
-    if (phoneNumber.length === 11) {
-      return `(${ddd}) ${firstPart}-${secondPart}`;
-    } else {
-      return `(${ddd}) ${firstPart.slice(0, 5)}-${firstPart.slice(5)}${secondPart}`;
-    }
+  // Verifique se o número de telefone possui 11 ou 10 dígitos
+  if (numericValue.length === 11) {
+    const ddd = numericValue.slice(0, 2);
+    const firstPart = numericValue.slice(2, 7);
+    const secondPart = numericValue.slice(7);
+    return `(${ddd}) ${firstPart.slice(0, 5)}-${firstPart.slice(5)}${secondPart}`;
+  } else if (numericValue.length === 10) {
+    const ddd = numericValue.slice(0, 2);
+    const firstPart = numericValue.slice(2, 6);
+    const secondPart = numericValue.slice(6);
+    return `(${ddd}) ${firstPart}-${secondPart}`;
   }
+
+  // Retorna o número original se não corresponder a 10 ou 11 dígitos
   return phoneNumber;
 };
 
