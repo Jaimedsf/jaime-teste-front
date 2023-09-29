@@ -29,30 +29,6 @@ const isValidCPF = (strCPF) => {
   return true;
 };
 
-// Função para formatar a moeda Real Brasileiro
-const formatCurrency = (value) => {
-  if (value) {
-    // Verifica se o valor já é um número
-    if (typeof value === 'number') {
-      return value.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
-    }
-
-    // Remove todos os caracteres não numéricos, exceto vírgulas e pontos
-    const numericValue = value.replace(/[^0-9,.]/g, "");
-    const floatValue = parseFloat(numericValue.replace(",", "."));
-
-    if (!isNaN(floatValue)) {
-      return floatValue.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
-    }
-  }
-  return value;
-};
 
 const AddClient = () => {
   const [successMessage, setSuccessMessage] = useState("");
@@ -81,11 +57,7 @@ const AddClient = () => {
         return isValidCPF(numericValue); // Valida o CPF apenas com os números
       }),
 
-    renda: Yup.string().required("Renda é obrigatório").transform((value, originalValue) => {
-      const cleanedValue = originalValue.replace(/[^0-9,.]/g, ""); // Remove caracteres não numéricos, exceto vírgulas e pontos
-      const floatValue = parseFloat(cleanedValue.replace(",", ".")); // Transforma vírgulas em pontos e converte para float
-      return isNaN(floatValue) ? "" : formatCurrency(floatValue); // Formata como moeda brasileira
-    }),
+    renda: Yup.string().required("Renda é obrigatório"),
 
     telefone: Yup.string()
       .transform((value, originalValue) => {
@@ -114,7 +86,7 @@ const AddClient = () => {
   const handleSubmit = (values) => {
     // Antes de enviar o CPF para a API, remova caracteres não numéricos
     const cleanedCPF = values.cpf.replace(/[^\d]/g, '');
-  
+
     // Antes de enviar o telefone para a API, remova caracteres não numéricos
     const cleanedTelefone = values.telefone.replace(/[^\d]/g, '');
   
@@ -222,19 +194,19 @@ const AddClient = () => {
             </div>
 
             <div className="form-group">
-  <label>Renda:</label>
-  <Field
-    name="renda"
-  >
-    {({ field }) => (
-      <InputMask
-        {...field}
-        mask="9999.99"
-        className="form-control"
-        placeholder="1234.56" // Exemplo de formato}
-      />
-    )}
-  </Field>
+              <label>Renda:</label>
+              <Field
+                name="renda"
+              >
+                {({ field }) => (
+                  <InputMask
+                    {...field}
+                    mask="99999.99"
+                    className="form-control"
+                    placeholder="12345.67" // Exemplo de formato}
+                  />
+                )}
+              </Field>
   <ErrorMessage
     name="renda"
     component="div"

@@ -80,6 +80,23 @@ const ClientsList = () => {
       });
   };
 
+  const formatRenda = (renda) => {
+    // Verifique se a renda é um número válido
+    if (typeof renda === "number") {
+      // Converta a renda para uma string e substitua o ponto decimal por uma vírgula
+      const rendaFormatada = renda.toFixed(2).replace(".", ",");
+      
+      // Insira um ponto como separador de milhares
+      const partes = rendaFormatada.split(",");
+      partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      
+      return partes.join(",");
+    }
+  
+    // Se não for um número, retorne a renda como está
+    return renda;
+  };
+
   const columns = useMemo(
     () => [
       {
@@ -98,6 +115,7 @@ const ClientsList = () => {
       {
         Header: "Renda",
         accessor: "renda",
+        Cell: ({ value }) => formatRenda(value),
       },
       {
         Header: "Telefone",
